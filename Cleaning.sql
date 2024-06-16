@@ -129,5 +129,5 @@ WHERE mrn IS NULL;
 
 -- For now I will not delete the null values. Because the purpose of the analysis is to build a dashboard. 
 -- Null values can be filtered out in the data visualization application. 
--- For applying machine learning algorithms, deleting the null values is necessary. 
+-- For applying machine learning algorithms, deleting the null values or filling them with existing is necessary. 
 
