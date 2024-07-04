@@ -1,4 +1,4 @@
--- exploratory Data Analysis 
+-- Exploratory Data Analysis 
 
 SELECT *
 FROM conditions_staging;
