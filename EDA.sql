@@ -1,9 +1,15 @@
 SELECT *
 FROM conditions_staging;
 
-
 SELECT * 
 FROM encounters_staging;
+
+SELECT * 
+FROM immunizations_staging;
+
+SELECT * 
+FROM patients_staging;
+
 
 -- get distinct encounterclass
 SELECT DISTINCT encounterclass
@@ -58,7 +64,33 @@ SELECT *
 FROM conditions_staging
 WHERE code in ('585.1',' 585.2', '585.3', '585.4');
 
+-- number of patients per each city that does not include the city 'Boston' with at least 100 patients 
+-- from that city
+SELECT city, COUNT(*) as num_of_patients
+FROM patients_staging
+WHERE city != 'Boston'
+GROUP BY city 
+HAVING COUNT(*) >= 100
+ORDER BY COUNT(*) DESC;
 
- 
+-- get patient's first, last names and immunization descriptions
+	
+SELECT pat.id
+	, pat.first
+	, pat.last
+	, imm.description
+FROM patients_staging AS pat
+iNNER JOIN immunizations_staging AS imm
+	ON pat.id = imm.patient;
 
+-- get the immunizations records for the patient named Adelina
+
+SELECT pat.id
+	, pat.first
+	, pat.last
+	, imm.description
+FROM patients_staging AS pat
+iNNER JOIN immunizations_staging AS imm
+	ON pat.id = imm.patient
+    AND pat.first = 'Adelina'
 
