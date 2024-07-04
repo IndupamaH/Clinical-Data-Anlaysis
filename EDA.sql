@@ -10,6 +10,11 @@ FROM immunizations_staging;
 SELECT * 
 FROM patients_staging;
 
+Select * 
+	from patients_staging
+	where first = 'Latrice';
+	
+
 
 -- get distinct encounterclass
 SELECT DISTINCT encounterclass
