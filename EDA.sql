@@ -1,3 +1,5 @@
+--this is EDA and updated on computer 
+
 SELECT *
 FROM conditions_staging;
 
