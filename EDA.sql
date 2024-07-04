@@ -1,4 +1,4 @@
---this is EDA and updated on computer 
+-- exploratory Data Analysis 
 
 SELECT *
 FROM conditions_staging;
