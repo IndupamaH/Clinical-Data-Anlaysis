@@ -14,7 +14,7 @@ Select *
 	from patients_staging
 	where first = 'Latrice';
 	
-
+-- updated to check git ub 
 
 -- get distinct encounterclass
 SELECT DISTINCT encounterclass
