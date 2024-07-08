@@ -16,7 +16,7 @@ Select *
 	from patients_staging
 	where first = 'Latrice';
 	
--- updated to check git ub 
+
 
 -- get distinct encounterclass
 SELECT DISTINCT encounterclass
@@ -100,4 +100,33 @@ FROM patients_staging AS pat
 iNNER JOIN immunizations_staging AS imm
 	ON pat.id = imm.patient
     AND pat.first = 'Adelina'
+
+-- Analysis: Amswer the following questions 
+
+-- How long do patients typically spend in the hospital?
+
+SELECT 
+    AVG(EXTRACT(EPOCH FROM (stop - start)) / 60) AS average_time_spent_minutes,
+    AVG(EXTRACT(EPOCH FROM (stop - start)) / 3600) AS average_time_spent_hours
+FROM 
+    encounters_staging;
+
+-- start and stop dates in coditions_staging table are the date the condition was first recorded 
+-- and end date when the conditions were cured 
+-- SELECT 
+--     (stop - start) AS average_time_spent_days
+-- FROM 
+--     conditions_staging;
+
+
+
+-- average time spent at the hospital for each encounter class
+SELECT 
+    AVG(EXTRACT(EPOCH FROM (stop - start)) / 60) AS average_time_spent_minutes,
+    AVG(EXTRACT(EPOCH FROM (stop - start)) / 3600) AS average_time_spent_hours,
+	encounterclass
+FROM 
+    encounters_staging
+GROUP BY encounterclass
+ORDER BY average_time_spent_hours asc;
 
