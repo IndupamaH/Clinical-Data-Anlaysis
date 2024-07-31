@@ -243,11 +243,49 @@ ORDER BY
 LIMIT 
     10;
 
+-- most common encounterclass
+
+select count(*), encounterclass
+from encounters_staging
+group by encounterclass
+order by count(*) desc;
+
+--	How do encounter costs differ by encounter class?
+select count(*), encounterclass, avg(base_encounter_cost) as avg_base_cost, avg(total_claim_cost) as avg_total_claim_cost
+from encounters_staging
+group by encounterclass
+order by avg_base_cost desc, avg_total_claim_cost desc, count(*) desc;
+
+--	What are the most common reason codes for encounters?
+select encounterclass, reasoncode, count(*)
+from encounters_staging
+group by reasoncode, encounterclass
+order by encounterclass, count(*) desc;
+
+WITH encounter_counts AS (
+    SELECT encounterclass, reasoncode, COUNT(*) AS cnt
+    FROM encounters_staging
+    GROUP BY reasoncode, encounterclass
+)
+SELECT encounterclass, reasoncode, cnt
+FROM encounter_counts
+WHERE (encounterclass, cnt) IN (
+    SELECT encounterclass, MAX(cnt)
+    FROM encounter_counts
+    GROUP BY encounterclass
+);
 
 
+--	How do costs and encounter durations vary by reason code?
+select reasoncode, avg(base_encounter_cost) as avg_base_cost, avg(total_claim_cost) as avg_total_claim_cost
+from encounters_staging
+group by reasoncode
+order by avg_base_cost desc, avg_total_claim_cost desc;
+
+---immunization rates over time for different vaccines
+select * from immunizations_staging;
 
 -------------------------------------------------------------------------
-
 
 
 SELECT COUNT(patient)
